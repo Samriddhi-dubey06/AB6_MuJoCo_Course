@@ -1,0 +1,13 @@
+<mujoco model="scene">
+
+  <!-- Gravity OFF -->
+  <option gravity="9.8 0 0"/>
+
+
+  <!-- Background -->
+  <include file="background.xml"/>
+
+  <!-- Robot -->
+  <include file="robot.xml"/>
+
+</mujoco>
