@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="manipulator_description">
+  
+  <!-- Base Plate Link -->
+  <link name="base_plate">
+    <inertial>
+      <origin xyz="-0.000883779348317404 0.000303948160604417 -0.00458333473565309" rpy="0 0 0" />
+      <mass value="0.728245987691005" />
+      <inertia ixx="0.00341139837650378" ixy="-0.00025644397699529" ixz="1.98840984367947E-19"
+               iyy="0.0100764449163017" iyz="-3.14566860786566E-19" izz="0.0134369088977631" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/base_plate.STL" />
+      </geometry>
+      <material name="blue_grey">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/base_plate.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="3.03391643822204E-05 -0.00208668546319513 0.0262475260562175" rpy="0 0 0" />
+      <mass value="0.0533429827052031" />
+      <inertia ixx="6.39945996025346E-05" ixy="2.12308031543565E-08" ixz="-3.78489873504313E-08"
+               iyy="6.60785441327523E-05" iyz="1.01073459947142E-05" izz="5.07243227409061E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/base_link.STL" />
+      </geometry>
+      <material name="blue_grey">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <origin xyz="-0.0045632 -0.12171 -0.0345" rpy="0 0 0" />
+    <parent link="base_plate" />
+    <child link="base_link" />
+  </joint>
+
+  <!-- Support Link -->
+  <link name="support_link">
+    <inertial>
+      <origin xyz="-1.12334733726183E-06 0.0153493545202041 -0.001681821354374" rpy="0 0 0" />
+      <mass value="0.0686421200995593" />
+      <inertia ixx="3.60608805349532E-05" ixy="3.33770237980786E-10" ixz="4.21736578113804E-10"
+               iyy="4.37611168106567E-05" iyz="1.39730842384814E-06" izz="3.0253715965075E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/support_link.STL" />
+      </geometry>
+      <material name="beige">
+        <color rgba="1 0.909803921568627 0.788235294117647 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/support_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="support_joint" type="fixed">
+    <origin xyz="0 -0.006723 0.062363" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="support_link" />
+  </joint>
+
+  <!-- Motor Link 1 -->
+  <link name="motor_link1">
+    <inertial>
+      <origin xyz="4.51716198501817E-06 0.0175580098317616 -0.000282194561063265" rpy="0 0 0" />
+      <mass value="0.0158646530724401" />
+      <inertia ixx="1.59231749729689E-06" ixy="1.37857959815808E-09" ixz="-8.40193110270451E-11"
+               iyy="6.54147511365928E-07" iyz="-2.65992981050191E-09" izz="1.85412914119058E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/motor_link1.STL" />
+      </geometry>
+      <material name="dark_grey">
+        <color rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/motor_link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="motor_joint1" type="fixed">
+    <origin xyz="0.0002 0.0055 -0.00016285" rpy="0 0 0" />
+    <parent link="support_link" />
+    <child link="motor_link1" />
+  </joint>
+
+  <!-- Robot Link 1 -->
+  <link name="robot_link1">
+    <inertial>
+      <origin xyz="-0.0373015124640902 0.0377852398098852 -0.0128634832870803" rpy="0 0 0" />
+      <mass value="0.0472534922082247" />
+      <inertia ixx="3.25755622768984E-05" ixy="1.79542479136902E-05" ixz="4.22861425469917E-06"
+               iyy="3.21128904321723E-05" iyz="-4.2834501888072E-06" izz="4.2997805560714E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/robot_link1.STL" />
+      </geometry>
+      <material name="beige">
+        <color rgba="1 0.909803921568627 0.788235294117647 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/robot_link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="robot_joint1" type="revolute">
+    <origin xyz="0 0.0245 0.0168" rpy="0 0 0" />
+    <parent link="motor_link1" />
+    <child link="robot_link1" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.5708" upper="1.5708" effort="150" velocity="2" />
+    <dynamics damping="0.7" friction="0.1" />
+  </joint>
+
+  <!-- Motor Link 2 -->
+  <link name="motor_link2">
+    <inertial>
+      <origin xyz="-0.012331934393459 0.0124982848332287 -0.000282194561063487" rpy="0 0 0" />
+      <mass value="0.0158646530724401" />
+      <inertia ixx="1.12789769864514E-06" ixy="4.69063819825351E-07" ixz="1.80890660444616E-09"
+               iyy="1.11856731001769E-06" iyz="-1.95195869247341E-09" izz="1.85412914119059E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/motor_link2.STL" />
+      </geometry>
+      <material name="dark_grey">
+        <color rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/motor_link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="motor_joint2" type="fixed">
+    <origin xyz="-0.053187 0.053592 -0.0169" rpy="0 0 0" />
+    <parent link="robot_link1" />
+    <child link="motor_link2" />
+  </joint>
+
+  <!-- Robot Link 2 -->
+  <link name="robot_link2">
+    <inertial>
+      <origin xyz="-0.0248613027880763 0.0285585015249439 -0.0105395361969718" rpy="0 0 0" />
+      <mass value="0.0252590038526559" />
+      <inertia ixx="1.22351983390425E-05" ixy="4.11404386953691E-06" ixz="1.95501305777949E-06"
+               iyy="1.10907653237107E-05" iyz="-2.24574927586296E-06" izz="1.13439781329453E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/robot_link2.STL" />
+      </geometry>
+      <material name="beige">
+        <color rgba="1 0.909803921568627 0.788235294117647 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/robot_link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="robot_joint2" type="revolute">
+    <origin xyz="-0.017212 0.017435 0.0168" rpy="0 0 0" />
+    <parent link="motor_link2" />
+    <child link="robot_link2" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.5708" upper="1.5708" effort="150" velocity="2" />
+    <dynamics damping="0.7" friction="0.1" />
+  </joint>
+
+  <!-- Motor Link 3 -->
+  <link name="motor_link3">
+    <inertial>
+      <origin xyz="-0.0115251244014912 0.0132459517282537 -0.000282194561063376" rpy="0 0 0" />
+      <mass value="0.0158646530724401" />
+      <inertia ixx="1.18648893483397E-06" ixy="4.64802382854493E-07" ixz="1.68313027352149E-09"
+               iyy="1.05997607382886E-06" iyz="-2.06139717742224E-09" izz="1.85412914119059E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/motor_link3.STL" />
+      </geometry>
+      <material name="dark_grey">
+        <color rgba="0.101960784313725 0.101960784313725 0.101960784313725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/motor_link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="motor_joint3" type="fixed">
+    <origin xyz="-0.029725 0.03384 -0.0169" rpy="0 0 0" />
+    <parent link="robot_link2" />
+    <child link="motor_link3" />
+  </joint>
+
+  <!-- Gripper Link -->
+  <link name="gripper_link">
+    <inertial>
+      <origin xyz="-0.0153336761457281 0.0218741753290725 -0.0132120433065881" rpy="0 0 0" />
+      <mass value="0.0186884112227927" />
+      <inertia ixx="5.39555653403163E-06" ixy="1.11420449161423E-06" ixz="2.09397053372629E-07"
+               iyy="4.58714515471339E-06" iyz="-2.9871426901031E-07" izz="3.5428178747801E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/gripper_link.STL" />
+      </geometry>
+      <material name="beige">
+        <color rgba="1 0.909803921568627 0.788235294117647 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/gripper_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="gripper_joint" type="revolute">
+    <origin xyz="-0.016087 0.018479 0.0168" rpy="0 0 0" />
+    <parent link="motor_link3" />
+    <child link="gripper_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.5708" upper="1.5708" effort="150" velocity="2" />
+    <dynamics damping="0.7" friction="0.1" />
+  </joint>
+  <!-- End of robot description -->
+
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="robot_joint1">
+      <command_interface name="position" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="robot_joint2">
+      <command_interface name="position" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="gripper_joint">
+      <command_interface name="position" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+
+  <!-- Gazebo-specific additions -->
+  <gazebo reference="base_plate">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  
+  <gazebo reference="base_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  
+  <gazebo reference="support_link">
+    <material>Gazebo/Wood</material>
+  </gazebo>
+  
+  <gazebo reference="motor_link1">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+  <gazebo reference="robot_link1">
+    <material>Gazebo/Wood</material>
+  </gazebo>
+  
+  <gazebo reference="motor_link2">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+  <gazebo reference="robot_link2">
+    <material>Gazebo/Wood</material>
+  </gazebo>
+  
+  <gazebo reference="motor_link3">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  
+  <gazebo reference="gripper_link">
+    <material>Gazebo/Wood</material>
+  </gazebo>
+
+</robot>
