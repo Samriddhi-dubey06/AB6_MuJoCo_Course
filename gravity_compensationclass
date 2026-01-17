@@ -1,0 +1,51 @@
+import mujoco
+import mujoco.viewer
+import time
+import os
+import numpy as np
+
+
+class GravityCompensator:
+    def __init__(self, xml_path, target_positions):
+        self.xml_path = xml_path
+        self.target_positions = np.array(target_positions)
+
+        # Load model and data
+        self.model = mujoco.MjModel.from_xml_path(self.xml_path)
+        self.data = mujoco.MjData(self.model)
+
+        print("Number of actuators:", self.model.nu)
+
+        # Set initial joint positions
+        self.data.qpos[:self.model.nu] = self.target_positions
+
+    def run(self):
+        with mujoco.viewer.launch_passive(self.model, self.data) as viewer:
+            while viewer.is_running():
+
+                # STEP 1: Reset to target positions (prevent drift)
+                self.data.qpos[:self.model.nu] = self.target_positions
+                self.data.qvel[:self.model.nu] = 0.0
+
+                # STEP 2: Compute forward dynamics
+                mujoco.mj_forward(self.model, self.data)
+
+                # STEP 3: Get gravity compensation torques
+                gravity_torques = self.data.qfrc_bias.copy()
+
+                # STEP 4: Apply negative gravity torques
+                self.data.ctrl[:] = -gravity_torques[:self.model.nu]
+
+                # STEP 5: Print for monitoring
+                print(f"Target positions: {self.target_positions}")
+                print(f"Actual positions: {self.data.qpos[:self.model.nu]}")
+                print(f"Gravity torques: {gravity_torques[:self.model.nu]}")
+                print(f"Applied torques: {self.data.ctrl[:]}")
+                print("-" * 40)
+
+                # STEP 6: Sync viewer
+                viewer.sync()
+                time.sleep(0.02)
+
+                # Optional movement (unchanged, still commented)
+                # self.target_positions[0] += 0.001
