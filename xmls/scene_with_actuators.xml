@@ -1,0 +1,12 @@
+<mujoco model="scene">
+
+  <!-- Standard gravity in -Z direction -->
+  <option gravity="0 0 -9.81"/>
+
+  <!-- Background -->
+  <include file="background.xml"/>
+
+  <!-- Robot with actuators -->
+  <include file="robot_with_actuators.xml"/>
+
+</mujoco>

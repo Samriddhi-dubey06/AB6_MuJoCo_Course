@@ -1,0 +1,127 @@
+<mujoco model="final_assembly">
+
+  <compiler angle="radian"
+            coordinate="local"
+            inertiafromgeom="false"/>
+
+  <option timestep="0.001"/>
+
+  <asset>
+    <mesh name="base_plate" file="meshes/base_plate.STL"/>
+    <mesh name="base_link" file="meshes/base_link.STL"/>
+    <mesh name="support_link" file="meshes/support_link.STL"/>
+    <mesh name="motor_link1" file="meshes/motor_link1.STL"/>
+    <mesh name="robot_link1" file="meshes/robot_link1.STL"/>
+    <mesh name="motor_link2" file="meshes/motor_link2.STL"/>
+    <mesh name="robot_link2" file="meshes/robot_link2.STL"/>
+    <mesh name="motor_link3" file="meshes/motor_link3.STL"/>
+    <mesh name="gripper_link" file="meshes/gripper_link.STL"/>
+  </asset>
+
+  <worldbody>
+
+    <body name="base_plate" pos="0 0 0.45">
+      <inertial pos="-0.00088378 0.00030395 -0.00458333"
+                mass="0.72824599"
+                diaginertia="0.0034114 0.0100764 0.0134369"/>
+      <geom type="mesh" mesh="base_plate" rgba="0.227 0.227 0.227 1"/>
+
+      <body name="base_link" pos="-0.0045632 -0.12171 -0.0345">
+        <inertial pos="0.00003034 -0.0020867 0.0262475"
+                  mass="0.053343"
+                  diaginertia="6.399e-05 6.607e-05 5.072e-05"/>
+        <geom type="mesh" mesh="base_link" rgba="0 0 0 1"/>
+
+        <body name="support_link" pos="0 -0.006723 0.062363">
+          <inertial pos="-0.0000011 0.015349 -0.0016818"
+                    mass="0.068642"
+                    diaginertia="3.606e-05 4.376e-05 3.025e-05"/>
+          <geom type="mesh" mesh="support_link" rgba="1 0.855 0.682 1"/>
+
+          <body name="motor_link1" pos="0.0002 0.0055 -0.00016285">
+            <inertial pos="0.0000045 0.017558 -0.000282"
+                      mass="0.0158647"
+                      diaginertia="1.592e-06 6.541e-07 1.854e-06"/>
+            <geom type="mesh" mesh="motor_link1" rgba="0 0 0 1"/>
+
+            <body name="robot_link1" pos="0 0.0245 0.0168">
+
+              <joint name="robot_joint1"
+                     type="hinge"
+                     axis="0 0 1"
+                     ref="2.35"
+                     range="-3.1416 3.1416"
+                     damping="0.05"
+                     frictionloss="0.1"/>
+
+              <inertial pos="-0.0373 0.0378 -0.01286"
+                        mass="0.0472535"
+                        diaginertia="3.257e-05 3.211e-05 4.299e-05"/>
+              <geom type="mesh" mesh="robot_link1" rgba="1 0.855 0.682 1"/>
+
+              <body name="motor_link2" pos="-0.053187 0.053592 -0.0169">
+                <inertial pos="-0.01233 0.0125 -0.000282"
+                          mass="0.0158647"
+                          diaginertia="1.127e-06 1.118e-06 1.854e-06"/>
+                <geom type="mesh" mesh="motor_link2" rgba="0 0 0 1"/>
+
+                <body name="robot_link2" pos="-0.017212 0.017435 0.0168">
+
+                  <joint name="robot_joint2"
+                         type="hinge"
+                         axis="0 0 1"
+                         ref="-0.03"
+                         range="-1.5708 1.5708"
+                         damping="0.05"
+                         frictionloss="0.1"/>
+
+                  <inertial pos="-0.02486 0.02856 -0.01054"
+                            mass="0.025259"
+                            diaginertia="1.223e-05 1.109e-05 1.134e-05"/>
+                  <geom type="mesh" mesh="robot_link2" rgba="1 0.855 0.682 1"/>
+
+                  <body name="motor_link3" pos="-0.029725 0.03384 -0.0169">
+                    <inertial pos="-0.01153 0.01325 -0.000282"
+                              mass="0.0158647"
+                              diaginertia="1.186e-06 1.059e-06 1.854e-06"/>
+                    <geom type="mesh" mesh="motor_link3" rgba="0 0 0 1"/>
+
+                    <body name="gripper_link" pos="-0.016087 0.018479 0.0168">
+                    
+
+                      <joint name="robot_joint3"
+                             type="hinge"
+                             axis="0 0 1"
+                             ref="-0.08"
+                             range="-1.5708 1.5708"
+                             damping="0.05"
+                             frictionloss="0.1"/>
+
+                      <inertial pos="-0.01533 0.02187 -0.01321"
+                                mass="0.0186884"
+                                diaginertia="5.395e-06 4.587e-06 3.542e-06"/>
+                      <geom type="mesh" mesh="gripper_link" rgba="1 0.855 0.682 1"/>
+                 
+
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- ACTUATORS -->
+  <!-- Torque limits increased for impedance control to work properly -->
+  <actuator>
+    <motor joint="robot_joint1" gear="1" ctrlrange="-5.0 5.0"/>
+    <motor joint="robot_joint2" gear="1" ctrlrange="-5.0 5.0"/>
+    <motor joint="robot_joint3" gear="1" ctrlrange="-2.0 2.0"/>
+  </actuator>
+
+
+</mujoco>

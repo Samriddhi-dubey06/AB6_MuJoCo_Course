@@ -8,15 +8,15 @@ import time
 # Load model
 # -------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-XML_PATH = os.path.join(BASE_DIR, "scene.xml")
+XML_PATH = os.path.join(BASE_DIR, "..", "..", "xmls", "scene.xml")
 
 model = mujoco.MjModel.from_xml_path(XML_PATH)
 data = mujoco.MjData(model)
 
 # -------------------------------------------------
-# End-effector site
+# End-effector body
 # -------------------------------------------------
-EE_SITE = model.site("gripper_link").id   # using body geom position as site alternative
+EE_BODY = model.body("gripper_link").id
 
 # -------------------------------------------------
 # Desired Cartesian position (meters)
@@ -40,8 +40,8 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
     while viewer.is_running():
 
         # --- FORCE 1-D CARTESIAN VECTORS ---
-        x  = np.array(data.site_xpos[EE_SITE], dtype=float).reshape(3,)
-        xd = np.array(data.site_xvelp[EE_SITE], dtype=float).reshape(3,)
+        x  = np.array(data.xpos[EE_BODY], dtype=float).reshape(3,)
+        xd = np.array(data.cvel[EE_BODY][3:6], dtype=float)  # Linear velocity (last 3 of 6)
 
         # --- PID ---
         error = x_des - x
@@ -51,7 +51,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
 
         # --- Jacobian ---
         Jp = np.zeros((3, model.nv))
-        mujoco.mj_jacSite(model, data, Jp, None, EE_SITE)
+        mujoco.mj_jacBody(model, data, Jp, None, EE_BODY)
 
         # --- Joint torques ---
         tau = Jp.T @ F

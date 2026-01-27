@@ -16,20 +16,11 @@
 
   <worldbody>
 
-    <body name="base_plate" pos="0 0 0.45">
+    <body name="base_plate" pos="0 0 0.46">
       <inertial pos="-0.00088378 0.00030395 -0.00458333"
                 mass="0.72824599"
                 diaginertia="0.0034114 0.0100764 0.0134369"/>
       <geom type="mesh" mesh="base_plate" rgba="0.227 0.227 0.227 1"/>
-
-      <!-- <geom name="x_axis" type="box"
-            pos="0 0 0.00001"
-            size="0.23 0.002 0.001"
-            rgba="1 1 1 1"/>
-      <geom name="y_axis" type="box"
-            pos="0 0 0.00001"
-            size="0.002 0.133 0.001"
-            rgba="1 1 1 1"/> -->
 
       <body name="base_link" pos="-0.0045632 -0.12171 -0.0345">
         <inertial pos="0.00003034 -0.0020867 0.0262475"
@@ -92,7 +83,18 @@
                       <inertial pos="-0.01533 0.02187 -0.01321"
                                 mass="0.0186884"
                                 diaginertia="5.395e-06 4.587e-06 3.542e-06"/>
-                      <geom type="mesh" mesh="gripper_link" rgba="1 0.855 0.682 1"/>
+                      <geom type="mesh" mesh="gripper_link" rgba="1 0.855 0.682 1" contype="0" conaffinity="0"/>
+                      <!-- Collision sphere at gripper tip for wall contact -->
+                      <geom name="gripper_collision" type="sphere"
+                            pos="-0.025 0.035 0"
+                            size="0.015"
+                            rgba="1 0.5 0 0.3"
+                            contype="1" conaffinity="1"/>
+                      <!-- END-EFFECTOR SITE (at gripper tip) -->
+                      <site name="ee_site"
+                            pos="-0.025 0.035 0"
+                            size="0.005"
+                            rgba="1 0 0 1"/>
                     </body>
 
                   </body>
@@ -105,4 +107,12 @@
       </body>
     </body>
   </worldbody>
+
+  <!-- ACTUATORS - Torque control for each joint -->
+  <actuator>
+    <motor name="motor1" joint="robot_joint1" gear="1" ctrllimited="false"/>
+    <motor name="motor2" joint="robot_joint2" gear="1" ctrllimited="false"/>
+    <motor name="motor3" joint="gripper_joint" gear="1" ctrllimited="false"/>
+  </actuator>
+
 </mujoco>

@@ -4,7 +4,7 @@ import time
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-XML_PATH = os.path.join(BASE_DIR, "scene.xml")
+XML_PATH = os.path.join(BASE_DIR, "xmls", "scene.xml")
 
 model = mujoco.MjModel.from_xml_path(XML_PATH)
 data = mujoco.MjData(model)

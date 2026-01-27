@@ -1,7 +1,7 @@
 <mujoco model="scene">
 
-  <!-- Gravity OFF -->
-  <option gravity="9.8 0 0"/>
+  <!-- Gravity ON -->
+  <option gravity="0 0 -9.8"/>
 
 
   <!-- Background -->

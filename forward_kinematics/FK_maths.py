@@ -8,7 +8,7 @@ import time
 # Load MuJoCo model
 # -------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-XML_PATH = os.path.join(BASE_DIR, "scene.xml")
+XML_PATH = os.path.join(BASE_DIR, "..", "xmls", "scene.xml")
 
 model = mujoco.MjModel.from_xml_path(XML_PATH)
 data = mujoco.MjData(model)
@@ -18,7 +18,7 @@ data = mujoco.MjData(model)
 # -------------------------------------------------
 j1 = model.joint("robot_joint1").qposadr
 j2 = model.joint("robot_joint2").qposadr
-j3 = model.joint("gripper_joint").qposadr
+j3 = model.joint("robot_joint3").qposadr
 
 # -------------------------------------------------
 # Link lengths (meters)
