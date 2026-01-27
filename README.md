@@ -202,11 +202,4 @@ Robot parameters are stored in `robox_parameters/robot_parameters.json`:
 - Joint limits (position and velocity)
 - Friction coefficients (Coulomb, viscous, stiction)
 
-## License
 
-This project is for educational purposes.
-
-## Acknowledgments
-
-- [MuJoCo](https://mujoco.org/) - Physics simulation engine
-- [PyKDL](https://github.com/orocos/orocos_kinematics_dynamics) - Kinematics library
